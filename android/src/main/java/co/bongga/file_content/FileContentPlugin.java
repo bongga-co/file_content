@@ -79,7 +79,7 @@ public class FileContentPlugin implements
 
   @Override
   public void onListen(Object args, EventChannel.EventSink eventSink) {
-    if(args != null && args.equals("file")) {
+    if(args != null && args.equals("file") && this.eventSink == null) {
       this.eventSink = eventSink;
     }
   }
