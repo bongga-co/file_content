@@ -86,7 +86,8 @@ public class FileContentPlugin implements
 
   @Override
   public void onCancel(Object args) {
-    if(args != null && args.equals("file")) {
+    if(args != null && args.equals("file") && this.eventSink != null) {
+      this.eventSink.endOfStream();
       this.eventSink = null;
     }
   }
