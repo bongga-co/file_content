@@ -98,6 +98,7 @@ public class ImportTask extends AsyncTask<Uri, Integer, String>  {
                         readCount += (long) read;
 
                         int progress = (int) ((((float) readCount) / ((float) this.size)) * 100.0f);
+
                         publishProgress(progress);
                     }
 
@@ -155,7 +156,12 @@ public class ImportTask extends AsyncTask<Uri, Integer, String>  {
         }
 
         if (callback != null) {
-            callback.onCopyFileFinished(result);
+            try {
+                Thread.sleep(3000);
+                callback.onCopyFileFinished(result);
+            } catch(Exception e) {
+                callback.onCopyFileFinished(result);
+            }
         }
     }
 }
