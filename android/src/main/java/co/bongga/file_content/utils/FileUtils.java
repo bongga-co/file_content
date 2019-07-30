@@ -2,7 +2,6 @@ package co.bongga.file_content.utils;
 
 import android.content.Context;
 import android.net.Uri;
-
 import java.io.File;
 
 public class FileUtils {
@@ -32,7 +31,9 @@ public class FileUtils {
         if (uri.getScheme().equalsIgnoreCase(Schema.CONTENT)) {
             size = ContentUtils.getFileSize(context, uri);
         } else {
-            size = new File(uri.getPath()).length();
+            if(uri.getPath() != null) {
+                size = new File(uri.getPath()).length();
+            }
         }
 
         return size;

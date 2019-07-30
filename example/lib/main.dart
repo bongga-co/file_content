@@ -28,15 +28,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> initPlatformState() async {
     _streamSubscription = FileContent.getFileStream().listen((value) {
       setState(() => _resp = value);
-    }, onError: (err) {
-      print("getIntentDataStream error: $err");
     });
-
-    final value = await FileContent.getFile();
-
-    if(value != null) {
-      setState(() => _resp = value);
-    }
   }
 
   @override
@@ -49,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Container(
             child: _resp != null 
-              ? Text('Running on: $_resp["path"]')
+              ? Text('Running on: ${_resp.toString()}', textAlign: TextAlign.center,)
               : Text('No Proceesed'),
           )
         ),

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 public class ContentUtils {
@@ -18,7 +19,7 @@ public class ContentUtils {
         }
     }
 
-    public static String getNameFromUri(Context context, Uri uri) {
+    static String getNameFromUri(Context context, Uri uri) {
         Cursor cursor;
         String name = "unnamed";
 
@@ -28,7 +29,7 @@ public class ContentUtils {
             return null;
         }
 
-        String[] columns = { "_display_name" };
+        String[] columns = { "_display_name", "_data" };
         String authority = uri.getAuthority();
 
         if (authority != null) {
@@ -54,6 +55,18 @@ public class ContentUtils {
             int columnIndex = cursor.getColumnIndex(columns[0]);
             name = cursor.getString(columnIndex);
 
+            if(name == null) {
+                columnIndex = cursor.getColumnIndex(columns[1]);
+                String path = cursor.getString(columnIndex);
+
+                if(path != null) {
+                    File f = new File(path);
+                    name = f.getName();
+                } else {
+                    name = "unnamed";
+                }
+            }
+
             if (!cursor.isClosed()) {
                 cursor.close();
             }
@@ -62,7 +75,7 @@ public class ContentUtils {
         return name;
     }
 
-    public static long getFileSize(Context context, Uri uri) {
+    static long getFileSize(Context context, Uri uri) {
         Cursor cursor;
         long size = 0;
 

@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="034d623d-ca16-462b-90fe-c0e75aec1aa3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/ImportTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/FileContentPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/FileContentPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/ContentUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/ContentUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/CopyTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/CopyTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -18,39 +24,48 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/FileContentPlugin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1149">
-              <caret line="89" column="35" selection-start-line="89" selection-start-column="35" selection-end-line="89" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/file_content.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="283">
+              <caret line="217" column="18" selection-start-line="217" selection-start-column="18" selection-end-line="217" selection-end-column="18" />
               <folding>
-                <element signature="e#0#20#0" expanded="true" />
+                <element signature="e#3978#3979#0" expanded="true" />
+                <element signature="e#3998#3999#0" expanded="true" />
+                <element signature="e#6134#6298#0" expanded="true" />
+                <element signature="e#6297#6298#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/CopyTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1355">
+              <caret line="157" column="5" selection-start-line="157" selection-start-column="5" selection-end-line="157" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>name</find>
+      <find>size</find>
+      <find>fileScheme</find>
+      <find>context</find>
+      <find>dialo</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -58,6 +73,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/lib/file_content.dart" />
+        <option value="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/FileUtils.java" />
+        <option value="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/ContentUtils.java" />
+        <option value="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/CopyTask.java" />
+        <option value="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/ImportTask.java" />
         <option value="$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/FileContentPlugin.java" />
       </list>
     </option>
@@ -74,6 +94,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -99,11 +120,6 @@
             </path>
             <path>
               <item name="file_content" type="1abcf292:AndroidViewProjectNode" />
-              <item name="file_content" type="e9137016:NonAndroidModuleNode" />
-              <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="file_content" type="1abcf292:AndroidViewProjectNode" />
               <item name="file_content_android" type="e9137016:NonAndroidModuleNode" />
             </path>
             <path>
@@ -117,11 +133,26 @@
               <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
               <item name="file_content" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="file_content" type="1abcf292:AndroidViewProjectNode" />
+              <item name="file_content_android" type="e9137016:NonAndroidModuleNode" />
+              <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
+              <item name="file_content" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="file_content" type="1abcf292:AndroidViewProjectNode" />
+              <item name="file_content_example_android" type="e9137016:NonAndroidModuleNode" />
+            </path>
+            <path>
+              <item name="file_content" type="1abcf292:AndroidViewProjectNode" />
+              <item name="file_content_example_android" type="e9137016:NonAndroidModuleNode" />
+              <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -158,7 +189,7 @@
     <frame x="80" y="23" width="1600" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24967907" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24967907" />
       <window_info id="Captures" order="1" side_tool="true" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -167,7 +198,7 @@
       <window_info id="Resources Explorer" order="6" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Dart Analysis" order="0" visible="true" weight="0.32941177" />
+      <window_info active="true" anchor="bottom" id="Dart Analysis" order="0" visible="true" weight="0.32941177" />
       <window_info anchor="bottom" id="Run" order="1" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
@@ -186,15 +217,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/file_content.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -204,10 +226,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/file_content.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="42" lean-forward="true" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/Schema.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/ContentUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/FileUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/ImportTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1500">
+          <caret line="100" column="50" lean-forward="true" selection-start-line="100" selection-start-column="50" selection-end-line="100" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/FileContentPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1149">
-          <caret line="89" column="35" selection-start-line="89" selection-start-column="35" selection-end-line="89" selection-end-column="35" />
+        <state relative-caret-position="283">
+          <caret line="217" column="18" selection-start-line="217" selection-start-column="18" selection-end-line="217" selection-end-column="18" />
+          <folding>
+            <element signature="e#3978#3979#0" expanded="true" />
+            <element signature="e#3998#3999#0" expanded="true" />
+            <element signature="e#6134#6298#0" expanded="true" />
+            <element signature="e#6297#6298#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/java/co/bongga/file_content/utils/CopyTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1355">
+          <caret line="157" column="5" selection-start-line="157" selection-start-column="5" selection-end-line="157" selection-end-column="5" />
         </state>
       </provider>
     </entry>

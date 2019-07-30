@@ -1,13 +1,18 @@
 package co.bongga.file_content;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -16,6 +21,7 @@ import java.util.Map;
 import co.bongga.file_content.interfaces.CopyTaskListener;
 import co.bongga.file_content.utils.CopyTask;
 import co.bongga.file_content.utils.FileUtils;
+import co.bongga.file_content.utils.ImportTask;
 import co.bongga.file_content.utils.Schema;
 import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodCall;
@@ -105,19 +111,31 @@ public class FileContentPlugin implements
     ) {
 
       this.mimeType = intent.getType();
-      Uri data = intent.getData();
 
-      Bundle extras = intent.getExtras();
+      if(intent.getData() != null) {
+        this.fileUri = intent.getData();
+      } else {
+        Bundle extras = intent.getExtras();
 
-      if(extras != null && extras.containsKey(Intent.EXTRA_STREAM)) {
-        data = extras.getParcelable(Intent.EXTRA_STREAM);
+        if(extras != null && extras.containsKey(Intent.EXTRA_STREAM)) {
+          this.fileUri = extras.getParcelable(Intent.EXTRA_STREAM);
+        }
       }
 
-      if(data != null) {
-        this.fileUri = data;
+      if(this.fileUri != null) {
+        checkFileScheme();
       }
+    }
+  }
 
-      checkFileScheme();
+  //TODO: dleete
+  private void test(String data) {
+    this.dataResult = new HashMap<>();
+
+    this.dataResult.put("data", data);
+
+    if(this.eventSink != null) {
+      this.eventSink.success(this.dataResult);
     }
   }
 
@@ -152,6 +170,28 @@ public class FileContentPlugin implements
     }
   }
 
+  private ProgressDialog getProgressDialog(Context context) {
+    ProgressDialog progressDialog = new ProgressDialog(context);
+    progressDialog.setTitle("DRMaps");
+    progressDialog.setMessage("Cargando...");
+    progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+    progressDialog.setProgress(0);
+    progressDialog.setMax(100);
+    progressDialog.setCancelable(false);
+
+    return progressDialog;
+  }
+
+  private ProgressBar getProgressBar(Context context) {
+    ProgressBar progress = new ProgressBar(context);
+
+    progress.setMax(100);
+    progress.setProgress(0);
+    progress.setVisibility(View.VISIBLE);
+
+    return progress;
+  }
+
   private void sendData(boolean isEmpty, String uri) {
     if(isEmpty) return;
 
@@ -167,34 +207,24 @@ public class FileContentPlugin implements
     }
   }
 
+  @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
   private void copyFile() {
-    Context context = registrar.activity();
+    Context context = this.registrar.activity();
 
-    String name = FileUtils.getNameFromUri(this.registrar.activity(), this.fileUri);
-    long size = FileUtils.getFileSize(this.registrar.activity(), this.fileUri);
+    String name = FileUtils.getNameFromUri(context, this.fileUri);
+    long size = FileUtils.getFileSize(context, this.fileUri);
 
-    final CopyTask copyTask = new CopyTask(context, name, size, new CopyTaskListener() {
+    ProgressDialog dialog = getProgressDialog(context);
+    dialog.show();
+
+    final ImportTask copyTask = new ImportTask(context, name, size, dialog, new CopyTaskListener() {
       @Override
       public void onCopyFileFinished(String result) {
-        sendData(false, result);
+        FileContentPlugin.this.sendData(false, result);
       }
     });
 
-    ProgressDialog progressDialog = new ProgressDialog(context);
-    progressDialog.setTitle("DRMaps");
-    progressDialog.setMessage("Cargando...");
-    progressDialog.setProgressStyle(1);
-    progressDialog.setCancelable(false);
-    progressDialog.setButton(-3, "Cancelar", new DialogInterface.OnClickListener() {
-      public final void onClick(DialogInterface dialogInterface, int i) {
-        copyTask.cancel(true);
-      }
-    });
-
-    copyTask.setProgressDialog(progressDialog);
-    progressDialog.show();
-
-    copyTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, fileUri);
+    copyTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, this.fileUri);
   }
 
   private void resetData(Result result) {
