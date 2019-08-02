@@ -16,6 +16,7 @@ class _HomeState extends State<Home> {
     super.initState();
     
     _streamSubscription = FileContent.getFileStream().listen((value) {
+      print(value);
       setState(() => _resp = value);
     });
   }
