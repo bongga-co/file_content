@@ -3,23 +3,22 @@ package co.bongga.file_content;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import com.google.gson.Gson;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import co.bongga.file_content.interfaces.CopyTaskListener;
-import co.bongga.file_content.utils.CopyTask;
+import co.bongga.file_content.models.SharedFile;
 import co.bongga.file_content.utils.FileUtils;
 import co.bongga.file_content.utils.ImportTask;
 import co.bongga.file_content.utils.Schema;
@@ -36,8 +35,10 @@ public class FileContentPlugin implements
         EventChannel.StreamHandler,
         PluginRegistry.NewIntentListener {
 
+  private Gson gson = new Gson();
   private Registrar registrar;
-  private Map<String, Object> dataResult = null;
+  private List<SharedFile> dataResult = null;
+  private String jsonResult = null;
   private EventChannel.EventSink eventSink = null;
 
   private Uri fileUri = null;
@@ -70,7 +71,7 @@ public class FileContentPlugin implements
   public void onMethodCall(MethodCall call, Result result) {
     switch (call.method) {
       case "getFile":
-        result.success(dataResult);
+        result.success(jsonResult);
         break;
 
       case "reset":
@@ -125,17 +126,6 @@ public class FileContentPlugin implements
       if(this.fileUri != null) {
         checkFileScheme();
       }
-    }
-  }
-
-  //TODO: dleete
-  private void test(String data) {
-    this.dataResult = new HashMap<>();
-
-    this.dataResult.put("data", data);
-
-    if(this.eventSink != null) {
-      this.eventSink.success(this.dataResult);
     }
   }
 
@@ -195,15 +185,16 @@ public class FileContentPlugin implements
   private void sendData(boolean isEmpty, String uri) {
     if(isEmpty) return;
 
-    this.dataResult = new HashMap<>();
+    String name = FileUtils.getNameFromUri(this.registrar.activity(), this.fileUri);
+    double size = FileUtils.getFileSize(this.registrar.activity(), this.fileUri);
 
-    this.dataResult.put("name", FileUtils.getNameFromUri(this.registrar.activity(), this.fileUri));
-    this.dataResult.put("size", FileUtils.getFileSize(this.registrar.activity(), this.fileUri));
-    this.dataResult.put("path", uri);
-    this.dataResult.put("mime", this.mimeType);
+    this.dataResult = new ArrayList<>();
+    this.dataResult.add(new SharedFile(name, uri, (int) size));
+
+    this.jsonResult = this.gson.toJson(this.dataResult);
 
     if(this.eventSink != null) {
-      this.eventSink.success(this.dataResult);
+      this.eventSink.success(this.jsonResult);
     }
   }
 
@@ -232,6 +223,7 @@ public class FileContentPlugin implements
     this.mimeType = null;
     this.fileUri = null;
     this.fileScheme = null;
+    this.jsonResult = null;
 
     result.success(null);
   }
