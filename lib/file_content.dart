@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:file_content/models/SharedFile.dart';
 
 class FileContent {
   static const String _CHANNEL_FILE = 'plugins.bongga.co/receive';
@@ -10,16 +12,67 @@ class FileContent {
 
   static Stream<dynamic> _streamFiles;
 
-  static Future<dynamic> getFile() async {
-    final file = await _channel.invokeMethod('getFile');
-    return file;
+  static Future<List<SharedFile>> getImage() async {
+    final String json = await _channel.invokeMethod('getImage');
+    if (json == null) return null;
+    final encoded = jsonDecode(json);
+    return encoded
+        .map<SharedFile>((file) => SharedFile.fromJson(file))
+        .toList();
   }
-  
-  static Stream<dynamic> getFileStream() {
-    if (_streamFiles == null) {
-      _streamFiles = _event.receiveBroadcastStream("file");
-    }
 
+  static Future<List<SharedFile>> getFile() async {
+    final String json = await _channel.invokeMethod('getFile');
+    if (json == null) return null;
+    final encoded = jsonDecode(json);
+    return encoded
+        .map<SharedFile>((file) => SharedFile.fromJson(file))
+        .toList();
+  }
+
+  static Stream<List<SharedFile>> getFileStream() {
+    if (_streamFiles == null) {
+      final stream =
+          _event.receiveBroadcastStream("file").cast<String>();
+      _streamFiles = stream.transform<List<SharedFile>>(
+        new StreamTransformer<String, List<SharedFile>>.fromHandlers(
+          handleData: (String data, EventSink<List<SharedFile>> sink) {
+            if (data == null) {
+              sink.add(null);
+            } else {
+              final encoded = jsonDecode(data);
+              sink.add(encoded
+                  .map<SharedFile>(
+                      (file) => SharedFile.fromJson(file))
+                  .toList());
+            }
+          },
+        ),
+      );
+    }
+    return _streamFiles;
+  }
+
+  static Stream<List<SharedFile>> getImageStream() {
+    if (_streamFiles == null) {
+      final stream =
+          _event.receiveBroadcastStream("image").cast<String>();
+      _streamFiles = stream.transform<List<SharedFile>>(
+        new StreamTransformer<String, List<SharedFile>>.fromHandlers(
+          handleData: (String data, EventSink<List<SharedFile>> sink) {
+            if (data == null) {
+              sink.add(null);
+            } else {
+              final encoded = jsonDecode(data);
+              sink.add(encoded
+                  .map<SharedFile>(
+                      (file) => SharedFile.fromJson(file))
+                  .toList());
+            }
+          },
+        ),
+      );
+    }
     return _streamFiles;
   }
 
