@@ -76,19 +76,19 @@ public class CopyTask extends AsyncTask<Uri, Integer, String> {
         String path = null;
 
         if(this.context != null) {
-            File dir = context.get().getExternalCacheDir();
+            File dir = context.get().getCacheDir();
 
-            File file;
+            File file = null;
             Uri uri = params[0];
 
             if(dir != null) {
-                file = new File(dir, name);
-            } else {
-                file = context.get().getExternalFilesDir("pdfs");
-            }
 
-            if(file != null && file.exists()) {
-                return file.getPath();
+                String filePath = dir.getPath() + File.separator + name;
+                file = new File(filePath);
+
+                if(file.exists()) {
+                    return file.getAbsolutePath();
+                }
             }
 
             if(uri.getScheme() != null) {

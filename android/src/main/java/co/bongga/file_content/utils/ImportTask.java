@@ -8,12 +8,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.view.View;
 import android.widget.ProgressBar;
-
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.ref.WeakReference;
 
 import co.bongga.file_content.interfaces.CopyTaskListener;
@@ -58,72 +56,54 @@ public class ImportTask extends AsyncTask<Uri, Integer, String>  {
         this.progressBar = dialog;
     }
 
+    private final String copyToTemp(Uri uri) {
+        StringBuilder strBuilder = new StringBuilder();
+        Context ctx = context.get();
+
+        File baseDir = ctx.getCacheDir();
+
+        if(baseDir == null) return null;
+
+        String filePath = strBuilder.append(baseDir.getPath()).append(File.separator).append(name).toString();
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            return file.getAbsolutePath();
+            //file.delete();
+        }
+
+        BufferedInputStream inputStream;
+        BufferedOutputStream outputStream;
+
+        try {
+            inputStream = new BufferedInputStream(ctx.getContentResolver().openInputStream(uri));
+            outputStream = new BufferedOutputStream(new FileOutputStream(file));
+
+            byte[] buf = new byte[1024];
+            int len = inputStream.read(buf);
+
+            while (len != -1) {
+                outputStream.write(buf, 0, len);
+                len = inputStream.read(buf);
+            }
+
+            outputStream.flush();
+
+            inputStream.close();
+            outputStream.close();
+
+        } catch(Exception e) {
+            return null;
+        }
+
+        return file.getAbsolutePath();
+    }
+
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     @Override
     protected String doInBackground(Uri... uris) {
-        String path = null;
-
-        if(context != null) {
-            Uri uri = uris[0];
-            File dir = context.get().getExternalCacheDir();
-            File file = new File(dir, name);
-
-            if(uri.getScheme() != null) {
-
-                InputStream input = null;
-                FileOutputStream output = null;
-
-                try {
-
-                    if(uri.getScheme().equals(Schema.CONTENT)) {
-                        input = context.get().getContentResolver().openInputStream(uri);
-                    } else {
-                        if(uri.getPath() != null) {
-                            input = new FileInputStream(new File(uri.getPath()));
-                        }
-                    }
-
-                    output = new FileOutputStream(file);
-
-                    byte[] buffer = new byte[4 * 1024];
-                    int read;
-
-                    if(input == null || input.read(buffer) == -1) return null;
-
-                    long readCount = 0;
-
-                    while ((read = input.read(buffer)) != -1) {
-                        output.write(buffer, 0, read);
-
-                        readCount += (long) read;
-
-                        int progress = (int) ((((float) readCount) / ((float) this.size)) * 100.0f);
-
-                        publishProgress(progress);
-                    }
-
-                    output.flush();
-
-                    path = file.getAbsolutePath();
-
-                } catch(Exception e) {
-                    path = null;
-                } finally {
-                    try {
-                        if (output != null) {
-                            output.close();
-                        }
-
-                        if(input != null) {
-                            input.close();
-                        }
-
-                    } catch (IOException e) {
-                        path = null;
-                    }
-                }
-            }
-        }
+        Uri uri = uris[0];
+        String path = copyToTemp(uri);
 
         return path;
     }

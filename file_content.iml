@@ -8,7 +8,9 @@
       </configuration>
     </facet>
     <facet type="android" name="Android">
-      <configuration />
+      <configuration>
+        <option name="ALLOW_USER_CONFIGURATION" value="false" />
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="true">
@@ -22,10 +24,6 @@
       <excludeFolder url="file://$MODULE_DIR$/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/example/build" />
-      <excludeFolder url="file://$MODULE_DIR$/example/build/app/intermediates/flutter/debug/android-arm/flutter_assets/packages" />
-      <excludeFolder url="file://$MODULE_DIR$/example/build/app/intermediates/flutter/debug/android-arm64/flutter_assets/packages" />
-      <excludeFolder url="file://$MODULE_DIR$/example/build/app/intermediates/flutter/debug/android-x86/flutter_assets/packages" />
-      <excludeFolder url="file://$MODULE_DIR$/example/build/app/intermediates/merged_assets/debug/mergeDebugAssets/out/flutter_assets/packages" />
       <excludeFolder url="file://$MODULE_DIR$/example/ios/Flutter/App.framework/flutter_assets/packages" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
