@@ -9,3 +9,7 @@
 ## [0.0.3] - 2019/07/30
 
 * iOS support
+
+## [0.0.4] - 2019/08/26
+
+* Fix files with the same name

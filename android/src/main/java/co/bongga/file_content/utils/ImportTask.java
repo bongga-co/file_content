@@ -13,6 +13,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.lang.ref.WeakReference;
+import java.util.Calendar;
 
 import co.bongga.file_content.interfaces.CopyTaskListener;
 
@@ -64,13 +65,13 @@ public class ImportTask extends AsyncTask<Uri, Integer, String>  {
 
         if(baseDir == null) return null;
 
+        Calendar cal = Calendar.getInstance();
+        String prefix = String.valueOf(cal.getTimeInMillis());
+
+        name = prefix.concat(name);
+
         String filePath = strBuilder.append(baseDir.getPath()).append(File.separator).append(name).toString();
         File file = new File(filePath);
-
-        if (file.exists()) {
-            return file.getAbsolutePath();
-            //file.delete();
-        }
 
         BufferedInputStream inputStream;
         BufferedOutputStream outputStream;
