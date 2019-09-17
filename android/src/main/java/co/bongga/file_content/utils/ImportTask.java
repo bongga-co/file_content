@@ -61,7 +61,7 @@ public class ImportTask extends AsyncTask<Uri, Integer, String>  {
         StringBuilder strBuilder = new StringBuilder();
         Context ctx = context.get();
 
-        File baseDir = ctx.getCacheDir();
+        File baseDir = ctx.getFilesDir();
 
         if(baseDir == null) return null;
 

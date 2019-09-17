@@ -13,3 +13,7 @@
 ## [0.0.4] - 2019/08/26
 
 * Fix files with the same name
+
+## [0.0.5] - 2019/09/17
+
+* Using getFilesDir instead of getCacheDir on Android
