@@ -80,7 +80,7 @@ public class ImportTask extends AsyncTask<Uri, Integer, String>  {
             inputStream = new BufferedInputStream(ctx.getContentResolver().openInputStream(uri));
             outputStream = new BufferedOutputStream(new FileOutputStream(file));
 
-            byte[] buf = new byte[1024];
+            byte[] buf = new byte[3096];
             int len = inputStream.read(buf);
 
             while (len != -1) {
